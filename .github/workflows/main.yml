@@ -15,7 +15,8 @@ jobs:
 
     - name: Zip src directory
       run: |
-        zip -r plugin.zip src/*
+        cd src
+        zip -r ../plugin.zip .
 
     - name: Upload ZIP as artifact
       uses: actions/upload-artifact@v3
