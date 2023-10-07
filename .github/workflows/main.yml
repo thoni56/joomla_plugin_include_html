@@ -25,3 +25,23 @@ jobs:
       with:
         name: plg_includehtml-${{github.ref_name}}.zip
         path: plg_includehtml-${{github.ref_name}}.zip
+
+    - name: Setup GitHub CLI
+      run: |
+        sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0
+        sudo apt-add-repository https://cli.github.com/packages
+        sudo apt update
+        sudo apt install gh
+        gh auth login --with-token <<< "${{ secrets.GITHUB_TOKEN }}"
+
+    - name: Create Release and Upload ZIP
+      env:
+        TAG_NAME: ${{ github.ref_name }}
+      run: |
+        # Create the release
+        gh release create $TAG_NAME \
+          --title "Release $TAG_NAME" \
+          --notes "Release notes for $TAG_NAME"
+
+        # Upload the asset to the release
+        gh release upload $TAG_NAME plg_include_html_v$TAG_NAME.zip
