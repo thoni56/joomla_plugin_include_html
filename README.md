@@ -2,15 +2,15 @@
 
 A Joomla 3 and 4 plugin to include local files containing HTML into your content.
 
-# Usage
+## Usage
 
-Insert `{include <filename>}`, where the filename is relative to the root of the Joomla installation anywhere in your content and it will be replaced by the content of the local file.
+Insert `{include_html <filename>}`, where the filename is relative to the root of the Joomla installation, anywhere in your content and it will be replaced by the content of the local file.
 
-# Installation
+## Installation
 
 Install as any other Joomla extension. Ensure it is activated.
 
-# License and History
+## License and History
 
 Plugin released under GNU General Public License v3, see the file LICENSE.
 
