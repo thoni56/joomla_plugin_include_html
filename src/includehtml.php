@@ -17,7 +17,7 @@ defined('_JEXEC') or die;
  * @subpackage  Content.include_html
  * @since       1.5
  */
-class plgContentinclude_html extends JPlugin
+class plgContentincludehtml extends JPlugin
 {
 
 	/**
