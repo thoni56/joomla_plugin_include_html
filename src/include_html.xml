@@ -1,25 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension version="3.0" type="plugin" group="content">
-  <name>Content - Include HTML</name>
-  <author>Daniel James Scott</author>
-  <creationDate>January 2013</creationDate>
-  <copyright>Copyright (C) 2013</copyright>
-  <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
-  <authorEmail>dan@danieljamesscott.org</authorEmail>
-  <authorUrl>danieljamesscott.org</authorUrl>
-  <version>0.1</version>
-  <description>PLG_INCLUDE_XML_DESCRIPTION</description>
-  <files>
-    <filename plugin="include">include.php</filename>
-    <filename>index.html</filename>
-  </files>
-  <languages>
-    <language tag="en-GB">en-GB.plg_content_include.ini</language>
-    <language tag="en-GB">en-GB.plg_content_include.sys.ini</language>
-  </languages>
-
-  <updateservers>
-    <server type="extension" priority="1" name="Include Plugin Update Site">
-      http://danieljamesscott.org/joomla_extensions/update/plg_include-update.xml
-  </updateservers>
+<extension type="plugin" version="3.9" method="upgrade" group="content">
+    <name>Include HTML</name>
+    <author>Thomas Nilefalk</author>
+    <creationDate>October 2023</creationDate>
+    <copyright>Copyright (C) 2023 Thomas Nilefalk. All rights reserved.</copyright>
+    <license>GNU General Public License version 3; see LICENSE</license>
+    <authorEmail>thomas@nilefalk.se</authorEmail>
+    <authorUrl>https://github.com/thoni56/joomla_plugin_include_html</authorUrl>
+    <version>1.0.0</version>
+    <description>Plugin to include HTML content from a file in articles or other content.</description>
+    <files>
+        <filename plugin="include_html">include_html.php</filename>
+    </files>
+    <updateservers>
+        <server type="extension" name="Include HTML Update Server" priority="1">
+          https://raw.githubusercontent.com/thoni56/joomla_plugin_include_html/main/updateserver/updateserver.xml
+        </server>
+    </updateservers>
 </extension>
