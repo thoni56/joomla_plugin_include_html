@@ -16,13 +16,17 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Check version consistency
+    - name: Prerequisites
       run: |
         sudo apt-get install -y xmlstarlet
+
+    - name: Check version consistency
+      run: |
         VERSION_FROM_XML=$(xmlstarlet sel -t -v "/extension/version" src/includehtml.xml)
+        VERSION_FROM_UPDATE=$(xmlstarlet sel -t -v "/updates/update/version" update/plg_content_includehtml-update.xml)
         GIT_TAG="${GITHUB_REF#refs/tags/}"
         if [ "v$VERSION_FROM_XML" != "$GIT_TAG" ]; then
-          echo "ERROR: Version in plugin.xml ($VERSION_FROM_XML) does not match the Git tag ($GIT_TAG)."
+          echo "ERROR: Version in includehtml.xml ($VERSION_FROM_XML) does not match the Git tag ($GIT_TAG)."
           exit 1
         fi
 
@@ -36,3 +40,17 @@ jobs:
       with:
         artifacts: ${{ env.ZIP_BASENAME }}-${{ env.TAG_NAME }}.zip
 
+    - name: Update manifest
+      run: |
+        # Extract version from plugin.xml
+        VERSION_FROM_XML=$(xmlstarlet sel -t -v "/extension/version" path_to_plugin.xml)
+  
+        # Update update.xml
+        xmlstarlet ed --inplace \
+          -u "/updates/update/version" -v "$VERSION_FROM_XML" \
+          -u "/updates/update/downloads/downloadurl" -v "https://github.com/thoni56/joomla_plugin_include_html/releases/download/v${VERSION_FROM_XML}/include_html_v${VERSION_FROM_XML}.zip" \
+          update/plg_content_includehtml-update.xml
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit -am "Update manifest with latest version"
+          git push

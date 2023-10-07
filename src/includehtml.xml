@@ -18,7 +18,7 @@
     </languages>
     <updateservers>
         <server type="extension" name="Include HTML Update Server" priority="1">
-          https://raw.githubusercontent.com/thoni56/joomla_plugin_include_html/main/updateserver/updateserver.xml
+          https://raw.githubusercontent.com/thoni56/joomla_plugin_include_html/main/update/plg_content_includehtml-update.xml
         </server>
     </updateservers>
 </extension>
