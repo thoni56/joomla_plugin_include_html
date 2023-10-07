@@ -16,12 +16,23 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Zip src directory
+    - name: Check version consistency
+      env:
+        GIT_TAG: ${GITHUB_REF#refs/tags/}
+      run: |
+        sudo apt-get install -y xmlstarlet
+        VERSION_FROM_XML=$(xmlstarlet sel -t -v "/extension/version" src/includehtml.xml)
+        if [ "$VERSION_FROM_XML" != "$GIT_TAG" ]; then
+          echo "Version in plugin.xml ($VERSION_FROM_XML) does not match the Git tag ($GIT_TAG)."
+          exit 1
+        fi
+
+    - name: Package the plugin
       run: |
         cd src
         zip -r ../${ZIP_BASENAME}-${TAG_NAME}.zip .
 
-    - name: Create Release
+    - name: Create Release with asset
       uses: ncipollo/release-action@v1
       with:
         artifacts: ${{ env.ZIP_BASENAME }}-${{ env.TAG_NAME }}.zip
