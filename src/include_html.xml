@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.0" type="plugin" group="content">
+  <name>Content - Include HTML</name>
+  <author>Daniel James Scott</author>
+  <creationDate>January 2013</creationDate>
+  <copyright>Copyright (C) 2013</copyright>
+  <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+  <authorEmail>dan@danieljamesscott.org</authorEmail>
+  <authorUrl>danieljamesscott.org</authorUrl>
+  <version>0.1</version>
+  <description>PLG_INCLUDE_XML_DESCRIPTION</description>
+  <files>
+    <filename plugin="include">include.php</filename>
+    <filename>index.html</filename>
+  </files>
+  <languages>
+    <language tag="en-GB">en-GB.plg_content_include.ini</language>
+    <language tag="en-GB">en-GB.plg_content_include.sys.ini</language>
+  </languages>
+
+  <updateservers>
+    <server type="extension" priority="1" name="Include Plugin Update Site">
+      http://danieljamesscott.org/joomla_extensions/update/plg_include-update.xml
+  </updateservers>
+</extension>
