@@ -8,40 +8,36 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      ZIP_BASENAME : plg_content_includehtml
+      TAG_NAME : ${{ github.ref_name }}
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
 
     - name: Zip src directory
-      env: 
-        TAG_NAME : ${{github.ref_name}}
       run: |
         cd src
-        zip -r ../plg_includehtml-${TAG_NAME}.zip .
+        zip -r ../${ZIP_BASENAME}-${TAG_NAME}.zip .
 
     - name: Upload ZIP as artifact
       uses: actions/upload-artifact@v3
       with:
-        name: plg_includehtml-${{github.ref_name}}.zip
-        path: plg_includehtml-${{github.ref_name}}.zip
+        name: ${{ env.ZIP_BASENAME }}-${{ env.TAG_NAME }}.zip
+        path: ${{ env.ZIP_BASENAME }}-${{ env.TAG_NAME }}.zip
 
-    - name: Setup GitHub CLI
+    - name: Install GitHub CLI
       run: |
-        sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0
-        sudo apt-add-repository https://cli.github.com/packages
+        type -p curl >/dev/null || (sudo apt update && sudo apt install curl -y)
+        curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
+        sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg
+        echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
         sudo apt update
-        sudo apt install gh
-        gh auth login --with-token <<< "${{ secrets.GITHUB_TOKEN }}"
+        sudo apt install gh -y
+    - name: Authenticate with GitHub CLI
+      run: gh auth login --with-token < <(echo ${{ secrets.GITHUB_TOKEN }})
 
-    - name: Create Release and Upload ZIP
-      env:
-        TAG_NAME: ${{ github.ref_name }}
+    - name: Create Release and Upload Asset
       run: |
-        # Create the release
-        gh release create $TAG_NAME \
-          --title "Release $TAG_NAME" \
-          --notes "Release notes for $TAG_NAME"
-
-        # Upload the asset to the release
-        gh release upload $TAG_NAME plg_include_html_v$TAG_NAME.zip
+        gh release create $TAG_NAME ${ZIP_BASENAME}-${TAG_NAME}.zip --title "Release $TAG_NAME" --notes "Release notes for $TAG_NAME"
