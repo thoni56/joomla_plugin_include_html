@@ -11,14 +11,14 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Zip src directory
       run: |
         zip -r plugin.zip src/*
 
     - name: Upload ZIP as artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: plugin.zip
         path: plugin.zip
