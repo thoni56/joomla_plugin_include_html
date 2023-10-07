@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <updates>
-    <update>
-        <name>Include HTML</name>
-        <description>Plugin to include local files with HTML content in articles.</description>
-        <element>includehtml</element>
-        <type>plugin</type>
-        <folder>content</folder>
-        <version>1.0.0</version>
-        <client>site</client>
-        <downloads>
-            <downloadurl type="full" format="zip">https://raw.githubusercontent.com/thoni56/joomla_plugin_include_html/main/update/plg_content_includehtml-v1.0.0.zip</downloadurl>
-        </downloads>
-        <tags>
-            <tag>stable</tag>
-        </tags>
-        <maintainer>Thomas Nilefalk</maintainer>
-        <maintainerurl>https://github.com/thoni56</maintainerurl>
-        <targetplatform name="joomla" version="3.10|4.[012345]" />
-    </update>
+  <update>
+    <name>Include HTML</name>
+    <description>Plugin to include local files with HTML content in articles.</description>
+    <element>includehtml</element>
+    <type>plugin</type>
+    <folder>content</folder>
+    <version>1.0.1</version>
+    <client>site</client>
+    <downloads>
+      <downloadurl type="full" format="zip">https://github.com/thoni56/joomla_plugin_include_html/releases/download/v1.0.1/include_html_v1.0.1.zip</downloadurl>
+    </downloads>
+    <tags>
+      <tag>stable</tag>
+    </tags>
+    <maintainer>Thomas Nilefalk</maintainer>
+    <maintainerurl>https://github.com/thoni56</maintainerurl>
+    <targetplatform name="joomla" version="3.10|4.[012345]"/>
+  </update>
 </updates>
