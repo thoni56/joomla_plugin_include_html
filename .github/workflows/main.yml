@@ -1,0 +1,24 @@
+name: Zip src directory on push to main
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Zip src directory
+      run: |
+        zip -r plugin.zip src/*
+
+    - name: Upload ZIP as artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: plugin.zip
+        path: plugin.zip
