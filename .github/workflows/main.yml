@@ -21,6 +21,7 @@ jobs:
         sudo apt-get install -y xmlstarlet
         VERSION_FROM_XML=$(xmlstarlet sel -t -v "/extension/version" src/includehtml.xml)
         GIT_TAG="${GITHUB_REF#refs/tags/}"
+        if [ "v$VERSION_FROM_XML" != "$GIT_TAG" ]; then
           echo "ERROR: Version in plugin.xml ($VERSION_FROM_XML) does not match the Git tag ($GIT_TAG)."
           exit 1
         fi
