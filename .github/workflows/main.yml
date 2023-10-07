@@ -3,7 +3,7 @@ name: Package and release the plugin
 on:
   push:
     tags:
-    - '*'
+    - 'v*'
 
 jobs:
   build:
@@ -13,6 +13,12 @@ jobs:
       TAG_NAME : ${{ github.ref_name }}
 
     steps:
+    - name: Check branch is main
+      run: |
+        if ! git merge-base --is-ancestor ${{ github.sha }} origin/main; then
+          echo "This tag is not on the main branch. Exiting."
+          exit 78
+        fi
     - name: Checkout code
       uses: actions/checkout@v4
 
@@ -53,4 +59,4 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git commit -am "Update manifest with latest version"
-          git push
+          git push origin main
