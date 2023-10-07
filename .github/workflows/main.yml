@@ -13,14 +13,18 @@ jobs:
       TAG_NAME : ${{ github.ref_name }}
 
     steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Fetch main branch
+      run: git fetch origin main:main
+
     - name: Check branch is main
       run: |
         if ! git merge-base --is-ancestor ${{ github.sha }} origin/main; then
           echo "This tag is not on the main branch. Exiting."
           exit 78
         fi
-    - name: Checkout code
-      uses: actions/checkout@v4
 
     - name: Prerequisites
       run: |
@@ -59,4 +63,4 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git commit -am "Update manifest with latest version"
-          git push origin main
+          git push origin HEAD:main
