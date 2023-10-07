@@ -3,7 +3,7 @@
     <update>
         <name>Include HTML</name>
         <description>Plugin to include local files with HTML content in articles.</description>
-        <element>include_html</element>
+        <element>includehtml</element>
         <type>plugin</type>
         <folder>content</folder>
         <version>1.0.0</version>
