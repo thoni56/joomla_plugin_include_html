@@ -1,9 +1,9 @@
-name: Zip src directory on push to main
+name: Package and release the plugin
 
 on:
   push:
-    branches:
-    - main
+    tags:
+    - 'v*'
 
 jobs:
   build:
@@ -21,24 +21,8 @@ jobs:
         cd src
         zip -r ../${ZIP_BASENAME}-${TAG_NAME}.zip .
 
-    - name: Upload ZIP as artifact
-      uses: actions/upload-artifact@v3
+    - name: Create Release
+      uses: ncipollo/release-action@v1
       with:
-        name: ${{ env.ZIP_BASENAME }}-${{ env.TAG_NAME }}.zip
-        path: ${{ env.ZIP_BASENAME }}-${{ env.TAG_NAME }}.zip
+        artifacts: ${{ env.ZIP_BASENAME }}-${{ env.TAG_NAME }}.zip
 
-    - name: Install GitHub CLI
-      run: |
-        type -p curl >/dev/null || (sudo apt update && sudo apt install curl -y)
-        curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg
-        sudo chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg
-        echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
-        sudo apt update
-        sudo apt install gh -y
-
-    - name: Authenticate with GitHub CLI
-      run: gh auth login --with-token < <(echo ${{ github.token }})
-
-    - name: Create Release and Upload Asset
-      run: |
-        gh release create $TAG_NAME ${ZIP_BASENAME}-${TAG_NAME}.zip --title "Release $TAG_NAME" --notes "Release notes for $TAG_NAME"
