@@ -58,7 +58,7 @@ jobs:
         # Update update.xml
         xmlstarlet ed --inplace \
           -u "/updates/update/version" -v "$VERSION_FROM_XML" \
-          -u "/updates/update/downloads/downloadurl" -v "https://github.com/thoni56/joomla_plugin_include_html/releases/download/v${VERSION_FROM_XML}/include_html_v${VERSION_FROM_XML}.zip" \
+          -u "/updates/update/downloads/downloadurl" -v "https://github.com/thoni56/joomla_plugin_include_html/releases/download/v${VERSION_FROM_XML}/plg_content_includehtml-v${VERSION_FROM_XML}.zip" \
           update/plg_content_includehtml-update.xml
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
