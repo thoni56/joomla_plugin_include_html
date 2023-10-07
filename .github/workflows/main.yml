@@ -43,7 +43,7 @@ jobs:
     - name: Update manifest
       run: |
         # Extract version from plugin.xml
-        VERSION_FROM_XML=$(xmlstarlet sel -t -v "/extension/version" path_to_plugin.xml)
+        VERSION_FROM_XML=$(xmlstarlet sel -t -v "/extension/version" src/includehtml.xml)
   
         # Update update.xml
         xmlstarlet ed --inplace \
