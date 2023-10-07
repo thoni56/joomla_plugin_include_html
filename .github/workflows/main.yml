@@ -36,16 +36,8 @@ jobs:
         sudo apt update
         sudo apt install gh -y
 
-    - name: Publish Release
-      uses: elgohr/Github-Release-Action@v5
-      env:
-        GH_TOKEN: ${{ github.token }}
-        GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
-      with:
-        title: MyReleaseMessage
-
     - name: Authenticate with GitHub CLI
-      run: gh auth login --with-token < <(echo ${{ secrets.RELEASE_TOKEN }})
+      run: gh auth login --with-token < <(echo ${{ github.token }})
 
     - name: Create Release and Upload Asset
       run: |
