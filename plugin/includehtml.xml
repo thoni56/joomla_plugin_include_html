@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="plugin" version="3.9" method="upgrade" group="content">
-    <name>Include HTML</name>
+    <name>Content - Include HTML</name>
     <author>Thomas Nilefalk</author>
     <creationDate>October 2023</creationDate>
     <copyright>Copyright (C) 2023 Thomas Nilefalk. All rights reserved.</copyright>
     <license>GNU General Public License version 3; see LICENSE</license>
     <authorEmail>thomas@nilefalk.se</authorEmail>
     <authorUrl>https://github.com/thoni56/joomla_plugin_include_html</authorUrl>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
     <description>PLG_INCLUDE_HTML_XML_DESCRIPTION</description>
     <files>
         <filename plugin="includehtml">includehtml.php</filename>
