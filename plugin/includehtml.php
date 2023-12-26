@@ -3,11 +3,14 @@
  * @package     Joomla.Plugin
  * @subpackage  Content.include_html
  *
+ * @copyright   Thomas Nilefalk (c) 2023
  * @copyright   Copyright (C) 2013 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
-
 defined('_JEXEC') or die;
+
+use Joomla\CMS\Plugin\CMSPlugin;
+use \Joomla\CMS\Filter\InputFilter;
 
 /**
  * Plug-in to enable loading HTML files into content
@@ -17,16 +20,16 @@ defined('_JEXEC') or die;
  * @subpackage  Content.include_html
  * @since       1.5
  */
-class plgContentincludehtml extends JPlugin
+class plgContentincludehtml extends CMSPlugin
 {
 
     /**
      * Plugin that loads an HTML file within content
      *
      * @param	string	The context of the content being passed to the plugin.
-     * @param	object	The article object.  Note $article->text is also available
+     * @param	object	The article object. Note $article->text is also available
      * @param	object	The article params
-     * @param	int	The 'page' number
+     * @param	int     The 'page' number
      */
     public function onContentPrepare($context, &$article, &$params, $page = 0)
     {
@@ -50,8 +53,8 @@ class plgContentincludehtml extends JPlugin
         if ($matches) {
             foreach ($matches as $match) {
                 $file_contents = file_get_contents ($match[1]);
-                                // Filter the file to exclude dangerous code
-                                $safe_file_contents = JFilterInput::getInstance([], [], 1, 1)->clean($file_contents, 'string');
+                // Filter the file to exclude dangerous code
+                $safe_file_contents = InputFilter::getInstance([], [], 1, 1)->clean($file_contents, 'string');
                 $article->text = preg_replace('/{include_html\s+(.*?)}/i', $safe_file_contents, $article->text, 1);
             }
         }
